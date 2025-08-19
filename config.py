@@ -3,7 +3,7 @@ USERNAME = "YOUR_USERNAME"
 PASSWORD = "YOUR_PASSWORD"
 
 # Search Settings
-SEARCH_KEYWORD = "travel"  # Can be a hashtag or a user account
+SEARCH_KEYWORDS = ["goldjewellery", "travel", "fashion"]  # A list of hashtags or accounts to process
 
 # Comment Settings
 COMMENTS = [
@@ -15,7 +15,6 @@ COMMENTS = [
 ]
 
 # Bot Settings
-NUM_REELS_TO_PROCESS = 10
 HEADLESS_MODE = False  # Set to True to run without opening a browser window
 LIKE_REEL = True  # Set to True to like the reel before commenting
 

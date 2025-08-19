@@ -13,7 +13,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
-from webdriver_manager.chrome import ChromeDriverManager
 
 class InstagramBot:
     """
@@ -29,12 +28,19 @@ class InstagramBot:
         - Configures logging.
         """
         self.config = config
+
+        # --- Settings for Brave Browser ---
+        brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+        driver_path = os.path.join(os.getcwd(), 'chromedriver.exe')
+
         chrome_options = Options()
+        chrome_options.binary_location = brave_path
+
         if self.config.HEADLESS_MODE:
             chrome_options.add_argument("--headless")
         chrome_options.add_argument("--log-level=3")
 
-        service = Service(ChromeDriverManager().install())
+        service = Service(executable_path=driver_path)
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
 
         self.processed_reels = self._load_processed_reels()
@@ -159,15 +165,12 @@ class InstagramBot:
             # Wait for login to complete
             if not self._wait_for_element(By.XPATH, "//*[local-name()='svg'][@aria-label='Home']", timeout=15):
                 self.logger.error("Login failed. Please check your credentials.")
-                # You might want to check for specific error messages here
                 return False
 
             self.logger.info("Login successful.")
 
-            # Handle popups after login
             self._handle_popups()
 
-            # Save cookies for future sessions
             with open(cookies_path, 'wb') as f:
                 pickle.dump(self.driver.get_cookies(), f)
             self.logger.info(f"Cookies saved to {cookies_path}")
@@ -180,59 +183,43 @@ class InstagramBot:
 
     def search_and_collect_reels(self):
         """
-        Searches for a keyword, navigates to the reels section, and collects their URLs.
+        Searches for a keyword and finds the first available post/reel that has
+        not been processed yet.
         """
         keyword = self.config.SEARCH_KEYWORD
-        self.logger.info(f"Searching for content with keyword: #{keyword}")
+        self.logger.info(f"Searching for the first post for keyword: #{keyword}")
 
-        # Navigate directly to the hashtag page
         url = f"https://www.instagram.com/explore/tags/{keyword}/"
         self.driver.get(url)
-        time.sleep(random.uniform(4, 6))
 
-        self.logger.info("Starting to scroll and collect reel URLs...")
+        # Wait for the first post/reel link to be available
+        try:
+            self.logger.info("Waiting for posts to load...")
+            post_element = self._wait_for_element(
+                By.XPATH,
+                "//main//a[contains(@href, '/p/') or contains(@href, '/reel/')]",
+                timeout=20
+            )
 
-        collected_urls = set()
+            if not post_element:
+                self.logger.warning("No posts found on the page for this keyword.")
+                return []
 
-        # Scroll and collect
-        last_height = self.driver.execute_script("return document.body.scrollHeight")
-        while len(collected_urls) < self.config.NUM_REELS_TO_PROCESS:
-            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(random.uniform(2, 4))
+            # Find all links and iterate to find the first unprocessed one
+            all_links = self.driver.find_elements(By.XPATH, "//main//a[contains(@href, '/p/') or contains(@href, '/reel/')]")
+            for link in all_links:
+                href = link.get_attribute('href')
+                if href and href not in self.processed_reels:
+                    self.logger.info(f"Found new post to process: {href}")
+                    self.reels_to_process = [href] # Return a list with this single URL
+                    return self.reels_to_process
 
-            # This xpath is a best-guess for public reel links on a hashtag page
-            reel_links = self.driver.find_elements(By.XPATH, "//a[contains(@href, '/reel/')]")
-
-            if not reel_links:
-                 self.logger.warning("No reel links found on the current view. The page structure might have changed.")
-
-            for link in reel_links:
-                try:
-                    href = link.get_attribute('href')
-                    if href and href not in self.processed_reels and href not in collected_urls:
-                        collected_urls.add(href)
-                        self.logger.info(f"Collected reel: {href}")
-                except Exception as e:
-                    self.logger.warning(f"Could not extract href from an element: {e}")
-
-            new_height = self.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                self.logger.info("Reached the end of the page or no more content loaded.")
-                break
-            last_height = new_height
-
-            # Add a small random pause to mimic human behavior
-            if random.random() < 0.15:
-                self.logger.info("Taking a brief pause...")
-                time.sleep(random.uniform(5, 10))
-
-        self.reels_to_process = list(collected_urls)[:self.config.NUM_REELS_TO_PROCESS]
-        if not self.reels_to_process:
-            self.logger.warning("Could not collect any new reels.")
+            self.logger.warning("All visible posts have already been processed. Nothing new to comment on.")
             return []
 
-        self.logger.info(f"Finished collecting. Total reels to process: {len(self.reels_to_process)}")
-        return self.reels_to_process
+        except Exception as e:
+            self.logger.error(f"An error occurred while trying to find the first post: {e}")
+            return []
 
     def _like_reel(self, reel_url):
         """
@@ -242,7 +229,6 @@ class InstagramBot:
             return
 
         try:
-            # This XPath is a common pattern for the like button (heart icon)
             like_button = self._wait_for_element(By.XPATH, "//*[local-name()='svg'][@aria-label='Like']", timeout=5)
             if like_button:
                 like_button.find_element(By.XPATH, './ancestor::button').click()
@@ -270,7 +256,6 @@ class InstagramBot:
             comment_box.send_keys(comment_text)
             time.sleep(random.uniform(2, 3))
 
-            # This XPath is a best-guess for the post button
             post_button = self.driver.find_element(By.XPATH, "//div[@class='_aacl _aaco _aacw _aad6 _aade']/button[@type='submit']")
             if not post_button.is_enabled():
                 self.logger.warning(f"Post button is not enabled for reel: {reel_url}")
@@ -278,7 +263,7 @@ class InstagramBot:
 
             post_button.click()
             self.logger.info(f"✅ Commented '{comment_text}' on reel: {reel_url}")
-            time.sleep(random.uniform(3, 5)) # Wait for comment to post
+            time.sleep(random.uniform(3, 5))
             return True
 
         except NoSuchElementException:
@@ -306,7 +291,7 @@ class InstagramBot:
             try:
                 self.driver.get(reel_url)
                 self.logger.info(f"Navigated to reel: {reel_url}")
-                time.sleep(random.uniform(5, 8)) # Allow page to load fully
+                time.sleep(random.uniform(5, 8))
 
                 self._like_reel(reel_url)
 
@@ -315,7 +300,6 @@ class InstagramBot:
                 else:
                     self.logger.warning(f"Failed to comment on reel: {reel_url}. It will be skipped.")
 
-                # A longer, more significant pause between reels to appear human
                 sleep_duration = random.uniform(15, 30)
                 self.logger.info(f"Pausing for {sleep_duration:.2f} seconds before next reel...")
                 time.sleep(sleep_duration)
@@ -335,19 +319,58 @@ class InstagramBot:
         self.driver.quit()
 
 if __name__ == "__main__":
+    print("--- Instagram Bot Setup ---")
+
+    # --- Get dynamic keywords ---
+    user_keywords = []
+    print("Enter search keywords one by one. Press Enter on an empty line to use defaults or finish.")
+    while True:
+        keyword = input(f"Keyword {len(user_keywords) + 1}: ")
+        if not keyword:
+            break
+        user_keywords.append(keyword)
+
+    if not user_keywords:
+        user_keywords = config.SEARCH_KEYWORDS
+        print(f"No dynamic keywords entered. Using default keywords from config: {user_keywords}")
+
+    # --- Get dynamic comments ---
+    user_comments = []
+    print("\nEnter your comments one by one. Press Enter on an empty line to use defaults or finish.")
+    while True:
+        comment = input(f"Comment {len(user_comments) + 1}: ")
+        if not comment:
+            break
+        user_comments.append(comment)
+
+    if not user_comments:
+        user_comments = config.COMMENTS
+        print(f"No dynamic comments entered. Using default comments from config.")
+
+    # --- Initialize and run the bot ---
     bot = InstagramBot()
+    bot.config.COMMENTS = user_comments
+
     try:
-        bot.logger.info("Starting Instagram Bot...")
         if bot.login():
-            reels = bot.search_and_collect_reels()
-            if reels:
-                bot.comment_on_reels()
+            for keyword in user_keywords:
+                bot.logger.info(f"--- Starting process for new keyword: '{keyword}' ---")
+                bot.config.SEARCH_KEYWORD = keyword  # Set the current keyword for this loop
+
+                reels = bot.search_and_collect_reels()
+                if reels:
+                    bot.comment_on_reels()
+
+                pause_duration = random.uniform(20, 40)
+                bot.logger.info(f"Finished processing for keyword '{keyword}'. Pausing for {pause_duration:.2f}s before next keyword.")
+                time.sleep(pause_duration)
         else:
             bot.logger.error("Bot could not log in. Shutting down.")
+
     except KeyboardInterrupt:
         bot.logger.info("Bot execution interrupted by user.")
     except Exception as e:
         bot.logger.critical(f"A critical error occurred in the main execution: {e}", exc_info=True)
     finally:
-        bot.logger.info("Shutting down bot.")
+        bot.logger.info("Shutting down bot session.")
         bot.close_session()
