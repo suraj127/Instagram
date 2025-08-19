@@ -3,7 +3,7 @@ USERNAME = "YOUR_USERNAME"
 PASSWORD = "YOUR_PASSWORD"
 
 # Search Settings
-SEARCH_KEYWORDS = ["goldjewellery", "travel", "fashion"]  # A list of hashtags or accounts to process
+SEARCH_KEYWORDS = ["goldjewellery"]  # A list of hashtags or accounts to process
 
 # Comment Settings
 COMMENTS = [
