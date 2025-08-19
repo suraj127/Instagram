@@ -28,10 +28,25 @@ class InstagramBot:
         - Configures logging.
         """
         self.config = config
+        self._setup_logging() # Setup logging first to capture all messages
 
         # --- Settings for Brave Browser ---
         brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
         driver_path = os.path.join(os.getcwd(), 'chromedriver.exe')
+
+        # --- VERY IMPORTANT: Check if chromedriver.exe exists ---
+        if not os.path.exists(driver_path):
+            self.logger.error("="*80)
+            self.logger.error("CRITICAL ERROR: 'chromedriver.exe' not found!")
+            self.logger.error(f"The script is looking for it in this exact folder: {os.getcwd()}")
+            self.logger.error("Please make sure you have downloaded chromedriver.exe and placed it in that folder.")
+            self.logger.error("="*80)
+            raise FileNotFoundError("Could not find chromedriver.exe. Please read the error message above.")
+
+        # Check if Brave browser exists at the specified path
+        if not os.path.exists(brave_path):
+             self.logger.warning(f"Warning: Brave Browser not found at the default path: {brave_path}")
+             self.logger.warning("If the bot fails to start, please check that this path is correct.")
 
         chrome_options = Options()
         chrome_options.binary_location = brave_path
@@ -44,20 +59,21 @@ class InstagramBot:
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
 
         self.processed_reels = self._load_processed_reels()
-        self._setup_logging()
 
     def _setup_logging(self):
         """
         Configures logging to print to console and save to a file.
         """
-        logging.basicConfig(
-            level=logging.INFO,
-            format="%(asctime)s [%(levelname)s] %(message)s",
-            handlers=[
-                logging.FileHandler(self.config.LOG_FILE_PATH, mode='w'),
-                logging.StreamHandler()
-            ]
-        )
+        # Ensure logger is not configured multiple times
+        if not logging.getLogger(__name__).handlers:
+            logging.basicConfig(
+                level=logging.INFO,
+                format="%(asctime)s [%(levelname)s] %(message)s",
+                handlers=[
+                    logging.FileHandler(self.config.LOG_FILE_PATH, mode='w'),
+                    logging.StreamHandler()
+                ]
+            )
         self.logger = logging.getLogger(__name__)
 
     def _load_processed_reels(self):
@@ -241,7 +257,8 @@ class InstagramBot:
 
     def _post_comment(self, reel_url):
         """
-        Posts a random comment on the currently open reel.
+        Posts the fixed comment from the config file on the currently open reel.
+        Uses JavaScript to handle multi-line text correctly.
         """
         try:
             comment_box = self._wait_for_element(By.CSS_SELECTOR, "textarea[aria-label='Add a comment…']", timeout=10)
@@ -249,21 +266,28 @@ class InstagramBot:
                 self.logger.warning(f"Comment box not found on {reel_url}. Comments may be disabled.")
                 return False
 
-            comment_text = random.choice(self.config.COMMENTS)
+            comment_text = self.config.COMMENT_TEXT
 
-            comment_box.click()
-            time.sleep(random.uniform(1, 2))
-            comment_box.send_keys(comment_text)
-            time.sleep(random.uniform(2, 3))
+            # Use JavaScript to set the value, which is more reliable for multi-line text
+            self.driver.execute_script("arguments[0].value = arguments[1];", comment_box, comment_text)
+            # Trigger an input event to ensure the website's framework (like React) recognizes the change
+            self.driver.execute_script("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", comment_box)
 
-            post_button = self.driver.find_element(By.XPATH, "//div[@class='_aacl _aaco _aacw _aad6 _aade']/button[@type='submit']")
+            time.sleep(random.uniform(1, 2)) # Brief pause after entering text
+
+            # The selector for the post button can be fragile. This is a best guess.
+            post_button = self.driver.find_element(By.XPATH, "//div[./textarea]/following-sibling::div/button[@type='submit']")
             if not post_button.is_enabled():
-                self.logger.warning(f"Post button is not enabled for reel: {reel_url}")
-                return False
+                self.logger.warning(f"Post button is not enabled for reel: {reel_url}. Trying a different selector.")
+                # Fallback selector
+                post_button = self.driver.find_element(By.XPATH, "//button[contains(text(),'Post')]")
+                if not post_button.is_enabled():
+                    self.logger.error(f"Post button remains disabled for reel: {reel_url}")
+                    return False
 
             post_button.click()
-            self.logger.info(f"✅ Commented '{comment_text}' on reel: {reel_url}")
-            time.sleep(random.uniform(3, 5))
+            self.logger.info(f"✅ Comment posted successfully on reel: {reel_url}")
+            time.sleep(random.uniform(4, 6)) # Wait for comment to appear
             return True
 
         except NoSuchElementException:
@@ -319,50 +343,21 @@ class InstagramBot:
         self.driver.quit()
 
 if __name__ == "__main__":
-    print("--- Instagram Bot Setup ---")
-
-    # --- Get dynamic keywords ---
-    user_keywords = []
-    print("Enter search keywords one by one. Press Enter on an empty line to use defaults or finish.")
-    while True:
-        keyword = input(f"Keyword {len(user_keywords) + 1}: ")
-        if not keyword:
-            break
-        user_keywords.append(keyword)
-
-    if not user_keywords:
-        user_keywords = config.SEARCH_KEYWORDS
-        print(f"No dynamic keywords entered. Using default keywords from config: {user_keywords}")
-
-    # --- Get dynamic comments ---
-    user_comments = []
-    print("\nEnter your comments one by one. Press Enter on an empty line to use defaults or finish.")
-    while True:
-        comment = input(f"Comment {len(user_comments) + 1}: ")
-        if not comment:
-            break
-        user_comments.append(comment)
-
-    if not user_comments:
-        user_comments = config.COMMENTS
-        print(f"No dynamic comments entered. Using default comments from config.")
-
-    # --- Initialize and run the bot ---
     bot = InstagramBot()
-    bot.config.COMMENTS = user_comments
-
     try:
         if bot.login():
-            for keyword in user_keywords:
-                bot.logger.info(f"--- Starting process for new keyword: '{keyword}' ---")
-                bot.config.SEARCH_KEYWORD = keyword  # Set the current keyword for this loop
+            # Loop through the keywords defined in the config file
+            for keyword in config.SEARCH_KEYWORDS:
+                bot.logger.info(f"--- Starting process for keyword: '{keyword}' ---")
+                bot.config.SEARCH_KEYWORD = keyword
 
+                # Find and process the first post for this keyword
                 reels = bot.search_and_collect_reels()
                 if reels:
                     bot.comment_on_reels()
 
                 pause_duration = random.uniform(20, 40)
-                bot.logger.info(f"Finished processing for keyword '{keyword}'. Pausing for {pause_duration:.2f}s before next keyword.")
+                bot.logger.info(f"Finished with keyword '{keyword}'. Pausing for {pause_duration:.2f}s.")
                 time.sleep(pause_duration)
         else:
             bot.logger.error("Bot could not log in. Shutting down.")
@@ -370,7 +365,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         bot.logger.info("Bot execution interrupted by user.")
     except Exception as e:
-        bot.logger.critical(f"A critical error occurred in the main execution: {e}", exc_info=True)
+        bot.logger.critical(f"A critical error occurred during the main execution: {e}", exc_info=True)
     finally:
-        bot.logger.info("Shutting down bot session.")
+        bot.logger.info("All keywords processed. Shutting down bot session.")
         bot.close_session()

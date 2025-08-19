@@ -6,13 +6,23 @@ PASSWORD = "YOUR_PASSWORD"
 SEARCH_KEYWORDS = ["goldjewellery", "travel", "fashion"]  # A list of hashtags or accounts to process
 
 # Comment Settings
-COMMENTS = [
-    "Awesome!",
-    "Great content!",
-    "Love this!",
-    "So cool!",
-    "Inspiring!",
-]
+COMMENT_TEXT = """Hello!
+
+Online Munim
+Jewellery Software
+
+Manage your entire jewellery business with one powerful, easy-to-use software.
+💍 Inventory & Stock
+🧾 GST Billing & Accounting
+👥 Customer Management
+🔒 Complete Data Security
+
+Take control of your showroom's success. We are currently offering a completely FREE DEMO to show you how Online Munim can transform your business.
+
+✨ Special Offer: Get an exclusive 10% DISCOUNT when you sign up after the demo!
+
+Ready to upgrade?
+Call us on 8600016251 to book your free demo today!"""
 
 # Bot Settings
 HEADLESS_MODE = False  # Set to True to run without opening a browser window
