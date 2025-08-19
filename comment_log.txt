@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 2025-08-20 02:22:22,120 [INFO] Attempting to log in...
 2025-08-20 02:22:27,197 [INFO] Found cookies file. Loading cookies...
 2025-08-20 02:22:34,856 [INFO] Login successful via cookies.
@@ -45,3 +46,78 @@ Stacktrace:
 2025-08-20 02:23:17,013 [WARNING] Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/65fdef66a61f21938d4dfdbc03ea86e2
 2025-08-20 02:23:21,078 [WARNING] Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E38D0DAB10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/65fdef66a61f21938d4dfdbc03ea86e2
 2025-08-20 02:23:25,138 [WARNING] Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E38D0DAE50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/65fdef66a61f21938d4dfdbc03ea86e2
+=======
+2025-08-20 01:27:14,225 [INFO] Starting Instagram Bot...
+2025-08-20 01:27:14,234 [INFO] Attempting to log in...
+2025-08-20 01:27:21,082 [INFO] Found cookies file. Loading cookies...
+2025-08-20 01:27:29,806 [INFO] Login successful via cookies.
+2025-08-20 01:27:38,242 [WARNING] Timeout waiting for element: //button[contains(text(),'Not Now')]
+2025-08-20 01:27:46,608 [WARNING] Timeout waiting for element: //div[@role='dialog']//button[contains(text(),'Save Info') or contains(text(),'Not Now')]
+2025-08-20 01:27:46,608 [INFO] Searching for content with keyword: #goldjewellery
+2025-08-20 01:27:53,977 [INFO] Starting to scroll and collect reel URLs...
+2025-08-20 01:27:56,940 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:27:59,749 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:02,000 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:06,137 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:09,361 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:11,634 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:13,885 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:17,136 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:20,188 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:23,418 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:26,636 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:29,094 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:32,999 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:35,980 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:39,640 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:42,234 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:46,096 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:49,211 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:52,730 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:28:56,593 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:00,610 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:00,617 [INFO] Taking a brief pause...
+2025-08-20 01:29:10,591 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:13,543 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:16,751 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:16,755 [INFO] Taking a brief pause...
+2025-08-20 01:29:30,221 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:33,636 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:37,018 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:39,288 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:41,629 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:45,003 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:48,590 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:51,274 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:53,977 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:57,774 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:29:57,781 [INFO] Taking a brief pause...
+2025-08-20 01:30:07,267 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:09,802 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:13,783 [INFO] Collected reel: https://www.instagram.com/explore/tags/reel/
+2025-08-20 01:30:16,422 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:20,395 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:23,677 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:25,842 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:29,600 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:32,031 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:34,176 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:37,493 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:40,222 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:43,206 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:46,637 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:50,084 [WARNING] No reel links found on the current view. The page structure might have changed.
+2025-08-20 01:30:50,089 [INFO] Reached the end of the page or no more content loaded.
+2025-08-20 01:30:50,089 [INFO] Finished collecting. Total reels to process: 1
+2025-08-20 01:30:50,089 [INFO] Starting to process 1 reels.
+2025-08-20 01:30:51,526 [INFO] Navigated to reel: https://www.instagram.com/explore/tags/reel/
+2025-08-20 01:31:02,184 [WARNING] Timeout waiting for element: //*[local-name()='svg'][@aria-label='Like']
+2025-08-20 01:31:02,184 [INFO] Reel might already be liked or button not found.
+2025-08-20 01:31:12,418 [WARNING] Timeout waiting for element: textarea[aria-label='Add a comment…']
+2025-08-20 01:31:12,418 [WARNING] Comment box not found on https://www.instagram.com/explore/tags/reel/. Comments may be disabled.
+2025-08-20 01:31:12,418 [WARNING] Failed to comment on reel: https://www.instagram.com/explore/tags/reel/. It will be skipped.
+2025-08-20 01:31:12,418 [INFO] Pausing for 25.35 seconds before next reel...
+2025-08-20 01:31:37,773 [INFO] Finished processing all collected reels.
+2025-08-20 01:31:37,773 [INFO] Shutting down bot.
+2025-08-20 01:31:37,773 [INFO] Session closed. Processed reels saved.
+>>>>>>> Stashed changes

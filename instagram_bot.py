@@ -55,6 +55,11 @@ class InstagramBot:
             chrome_options.add_argument("--headless")
         chrome_options.add_argument("--log-level=3")
 
+<<<<<<< Updated upstream
+=======
+        # Use the manually downloaded chromedriver.exe from the project folder
+        driver_path = os.path.join(os.getcwd(), 'chromedriver.exe')
+>>>>>>> Stashed changes
         service = Service(executable_path=driver_path)
         self.driver = webdriver.Chrome(service=service, options=chrome_options)
 
