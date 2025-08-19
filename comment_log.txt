@@ -1,5 +1,45 @@
-2025-08-20 01:55:31,452 [ERROR] ================================================================================
-2025-08-20 01:55:31,454 [ERROR] CRITICAL ERROR: 'chromedriver.exe' not found!
-2025-08-20 01:55:31,454 [ERROR] The script is looking for it in this exact folder: C:\Users\soura\Desktop\Instagram
-2025-08-20 01:55:31,454 [ERROR] Please make sure you have downloaded chromedriver.exe and placed it in that folder.
-2025-08-20 01:55:31,456 [ERROR] ================================================================================
+2025-08-20 02:01:58,475 [INFO] Attempting to log in...
+2025-08-20 02:02:04,260 [INFO] Found cookies file. Loading cookies...
+2025-08-20 02:02:09,837 [INFO] Login successful via cookies.
+2025-08-20 02:02:19,796 [WARNING] Timeout waiting for element: //button[contains(text(),'Not Now')]
+2025-08-20 02:02:28,010 [WARNING] Timeout waiting for element: //div[@role='dialog']//button[contains(text(),'Save Info') or contains(text(),'Not Now')]
+2025-08-20 02:02:28,011 [INFO] --- Starting process for keyword: 'goldjewellery' ---
+2025-08-20 02:02:28,011 [INFO] Searching for the first post for keyword: #goldjewellery
+2025-08-20 02:02:29,353 [INFO] Waiting for posts to load...
+2025-08-20 02:02:32,039 [INFO] Found new post to process: https://www.instagram.com/p/DKQH9KiNdFE/
+2025-08-20 02:02:32,039 [INFO] Starting to process 1 reels.
+2025-08-20 02:02:34,803 [INFO] Navigated to reel: https://www.instagram.com/p/DKQH9KiNdFE/
+2025-08-20 02:02:40,258 [WARNING] Could not like the reel https://www.instagram.com/p/DKQH9KiNdFE/: Message: no such element: Unable to locate element: {"method":"xpath","selector":"./ancestor::button"}
+  (Session info: chrome=139.0.7258.127); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Stacktrace:
+	GetHandleVerifier [0x0x7ff6f5886b25+79621]
+	GetHandleVerifier [0x0x7ff6f5886b80+79712]
+	(No symbol) [0x0x7ff6f561c0ea]
+	(No symbol) [0x0x7ff6f5672f56]
+	(No symbol) [0x0x7ff6f567320c]
+	(No symbol) [0x0x7ff6f5665a5c]
+	(No symbol) [0x0x7ff6f569b17f]
+	(No symbol) [0x0x7ff6f5665926]
+	(No symbol) [0x0x7ff6f569b350]
+	(No symbol) [0x0x7ff6f56c33d0]
+	(No symbol) [0x0x7ff6f569af13]
+	(No symbol) [0x0x7ff6f5664151]
+	(No symbol) [0x0x7ff6f5664ee3]
+	GetHandleVerifier [0x0x7ff6f5b4683d+2962461]
+	GetHandleVerifier [0x0x7ff6f5b40b5d+2938685]
+	GetHandleVerifier [0x0x7ff6f5b5f71d+3064573]
+	GetHandleVerifier [0x0x7ff6f58a0c6e+186446]
+	GetHandleVerifier [0x0x7ff6f58a8a3f+218655]
+	GetHandleVerifier [0x0x7ff6f588f914+115956]
+	GetHandleVerifier [0x0x7ff6f588fac9+116393]
+	GetHandleVerifier [0x0x7ff6f5875ef8+10968]
+	BaseThreadInitThunk [0x0x7ff9eaebe8d7+23]
+	RtlUserThreadStart [0x0x7ff9ec13c34c+44]
+
+2025-08-20 02:02:42,107 [WARNING] Could not find the comment box or post button on https://www.instagram.com/p/DKQH9KiNdFE/. Structure may have changed.
+2025-08-20 02:02:42,108 [WARNING] Failed to comment on reel: https://www.instagram.com/p/DKQH9KiNdFE/. It will be skipped.
+2025-08-20 02:02:42,108 [INFO] Pausing for 16.15 seconds before next reel...
+2025-08-20 02:02:58,261 [INFO] Finished processing all collected reels.
+2025-08-20 02:02:58,261 [INFO] Finished with keyword 'goldjewellery'. Pausing for 30.82s.
+2025-08-20 02:03:29,086 [INFO] All keywords processed. Shutting down bot session.
+2025-08-20 02:03:29,087 [INFO] Session closed. Processed reels saved.
