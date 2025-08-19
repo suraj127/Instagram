@@ -1,0 +1,5 @@
+2025-08-20 01:55:31,452 [ERROR] ================================================================================
+2025-08-20 01:55:31,454 [ERROR] CRITICAL ERROR: 'chromedriver.exe' not found!
+2025-08-20 01:55:31,454 [ERROR] The script is looking for it in this exact folder: C:\Users\soura\Desktop\Instagram
+2025-08-20 01:55:31,454 [ERROR] Please make sure you have downloaded chromedriver.exe and placed it in that folder.
+2025-08-20 01:55:31,456 [ERROR] ================================================================================
