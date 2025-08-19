@@ -1,15 +1,15 @@
-2025-08-20 02:19:48,570 [INFO] Attempting to log in...
-2025-08-20 02:19:54,415 [INFO] Found cookies file. Loading cookies...
-2025-08-20 02:20:03,147 [INFO] Login successful via cookies.
-2025-08-20 02:20:11,395 [WARNING] Timeout waiting for element: //button[contains(text(),'Not Now')]
-2025-08-20 02:20:19,632 [WARNING] Timeout waiting for element: //div[@role='dialog']//button[contains(text(),'Save Info') or contains(text(),'Not Now')]
-2025-08-20 02:20:19,632 [INFO] --- Starting process for keyword: 'goldjewellery' ---
-2025-08-20 02:20:19,632 [INFO] Searching for the first post for keyword: #goldjewellery
-2025-08-20 02:20:21,119 [INFO] Waiting for posts to load...
-2025-08-20 02:20:24,618 [INFO] Found new post to process: https://www.instagram.com/p/DKQH9KiNdFE/
-2025-08-20 02:20:24,618 [INFO] Starting to process 1 reels.
-2025-08-20 02:20:27,506 [INFO] Navigated to reel: https://www.instagram.com/p/DKQH9KiNdFE/
-2025-08-20 02:20:34,637 [WARNING] Could not like the reel https://www.instagram.com/p/DKQH9KiNdFE/: Message: no such element: Unable to locate element: {"method":"xpath","selector":"./ancestor::button"}
+2025-08-20 02:22:22,120 [INFO] Attempting to log in...
+2025-08-20 02:22:27,197 [INFO] Found cookies file. Loading cookies...
+2025-08-20 02:22:34,856 [INFO] Login successful via cookies.
+2025-08-20 02:22:43,073 [WARNING] Timeout waiting for element: //button[contains(text(),'Not Now')]
+2025-08-20 02:22:51,286 [WARNING] Timeout waiting for element: //div[@role='dialog']//button[contains(text(),'Save Info') or contains(text(),'Not Now')]
+2025-08-20 02:22:51,287 [INFO] --- Starting process for keyword: 'goldjewellery' ---
+2025-08-20 02:22:51,287 [INFO] Searching for the first post for keyword: #goldjewellery
+2025-08-20 02:22:52,721 [INFO] Waiting for posts to load...
+2025-08-20 02:22:56,034 [INFO] Found new post to process: https://www.instagram.com/p/DKQH9KiNdFE/
+2025-08-20 02:22:56,037 [INFO] Starting to process 1 reels.
+2025-08-20 02:22:58,222 [INFO] Navigated to reel: https://www.instagram.com/p/DKQH9KiNdFE/
+2025-08-20 02:23:06,128 [WARNING] Could not like the reel https://www.instagram.com/p/DKQH9KiNdFE/: Message: no such element: Unable to locate element: {"method":"xpath","selector":"./ancestor::button"}
   (Session info: chrome=139.0.7258.127); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
 Stacktrace:
 	GetHandleVerifier [0x0x7ff6f5886b25+79621]
@@ -36,6 +36,12 @@ Stacktrace:
 	BaseThreadInitThunk [0x0x7ff9eaebe8d7+23]
 	RtlUserThreadStart [0x0x7ff9ec13c34c+44]
 
-2025-08-20 02:20:35,750 [WARNING] Could not find the comment box or post button on https://www.instagram.com/p/DKQH9KiNdFE/. Structure may have changed.
-2025-08-20 02:20:35,750 [WARNING] Failed to comment on reel: https://www.instagram.com/p/DKQH9KiNdFE/. It will be skipped.
-2025-08-20 02:20:35,750 [INFO] Pausing for 25.25 seconds before next reel...
+2025-08-20 02:23:08,184 [WARNING] Could not find the comment box or post button on https://www.instagram.com/p/DKQH9KiNdFE/. Structure may have changed.
+2025-08-20 02:23:08,184 [WARNING] Failed to comment on reel: https://www.instagram.com/p/DKQH9KiNdFE/. It will be skipped.
+2025-08-20 02:23:08,184 [INFO] Pausing for 22.14 seconds before next reel...
+2025-08-20 02:23:16,997 [INFO] Bot execution interrupted by user.
+2025-08-20 02:23:17,001 [INFO] All keywords processed. Shutting down bot session.
+2025-08-20 02:23:17,003 [INFO] Session closed. Processed reels saved.
+2025-08-20 02:23:17,013 [WARNING] Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/65fdef66a61f21938d4dfdbc03ea86e2
+2025-08-20 02:23:21,078 [WARNING] Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E38D0DAB10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/65fdef66a61f21938d4dfdbc03ea86e2
+2025-08-20 02:23:25,138 [WARNING] Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001E38D0DAE50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/65fdef66a61f21938d4dfdbc03ea86e2
