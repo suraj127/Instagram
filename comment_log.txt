@@ -1,15 +1,15 @@
-2025-08-20 02:08:17,081 [INFO] Attempting to log in...
-2025-08-20 02:08:23,329 [INFO] Found cookies file. Loading cookies...
-2025-08-20 02:08:31,359 [INFO] Login successful via cookies.
-2025-08-20 02:08:39,549 [WARNING] Timeout waiting for element: //button[contains(text(),'Not Now')]
-2025-08-20 02:08:47,747 [WARNING] Timeout waiting for element: //div[@role='dialog']//button[contains(text(),'Save Info') or contains(text(),'Not Now')]
-2025-08-20 02:08:47,750 [INFO] --- Starting process for keyword: 'goldjewellery' ---
-2025-08-20 02:08:47,750 [INFO] Searching for the first post for keyword: #goldjewellery
-2025-08-20 02:08:49,334 [INFO] Waiting for posts to load...
-2025-08-20 02:08:52,144 [INFO] Found new post to process: https://www.instagram.com/p/DKQH9KiNdFE/
-2025-08-20 02:08:52,146 [INFO] Starting to process 1 reels.
-2025-08-20 02:08:54,202 [INFO] Navigated to reel: https://www.instagram.com/p/DKQH9KiNdFE/
-2025-08-20 02:09:00,747 [WARNING] Could not like the reel https://www.instagram.com/p/DKQH9KiNdFE/: Message: no such element: Unable to locate element: {"method":"xpath","selector":"./ancestor::button"}
+2025-08-20 02:12:35,917 [INFO] Attempting to log in...
+2025-08-20 02:12:40,840 [INFO] Found cookies file. Loading cookies...
+2025-08-20 02:12:48,773 [INFO] Login successful via cookies.
+2025-08-20 02:12:57,029 [WARNING] Timeout waiting for element: //button[contains(text(),'Not Now')]
+2025-08-20 02:13:05,353 [WARNING] Timeout waiting for element: //div[@role='dialog']//button[contains(text(),'Save Info') or contains(text(),'Not Now')]
+2025-08-20 02:13:05,353 [INFO] --- Starting process for keyword: 'goldjewellery' ---
+2025-08-20 02:13:05,353 [INFO] Searching for the first post for keyword: #goldjewellery
+2025-08-20 02:13:07,083 [INFO] Waiting for posts to load...
+2025-08-20 02:13:09,678 [INFO] Found new post to process: https://www.instagram.com/p/DKQH9KiNdFE/
+2025-08-20 02:13:09,678 [INFO] Starting to process 1 reels.
+2025-08-20 02:13:11,533 [INFO] Navigated to reel: https://www.instagram.com/p/DKQH9KiNdFE/
+2025-08-20 02:13:18,430 [WARNING] Could not like the reel https://www.instagram.com/p/DKQH9KiNdFE/: Message: no such element: Unable to locate element: {"method":"xpath","selector":"./ancestor::button"}
   (Session info: chrome=139.0.7258.127); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
 Stacktrace:
 	GetHandleVerifier [0x0x7ff6f5886b25+79621]
@@ -36,10 +36,10 @@ Stacktrace:
 	BaseThreadInitThunk [0x0x7ff9eaebe8d7+23]
 	RtlUserThreadStart [0x0x7ff9ec13c34c+44]
 
-2025-08-20 02:09:01,903 [WARNING] Could not find the comment box or post button on https://www.instagram.com/p/DKQH9KiNdFE/. Structure may have changed.
-2025-08-20 02:09:01,903 [WARNING] Failed to comment on reel: https://www.instagram.com/p/DKQH9KiNdFE/. It will be skipped.
-2025-08-20 02:09:01,905 [INFO] Pausing for 21.46 seconds before next reel...
-2025-08-20 02:09:23,367 [INFO] Finished processing all collected reels.
-2025-08-20 02:09:23,367 [INFO] Finished with keyword 'goldjewellery'. Pausing for 39.93s.
-2025-08-20 02:10:03,303 [INFO] All keywords processed. Shutting down bot session.
-2025-08-20 02:10:03,305 [INFO] Session closed. Processed reels saved.
+2025-08-20 02:13:20,072 [WARNING] Could not find the comment box or post button on https://www.instagram.com/p/DKQH9KiNdFE/. Structure may have changed.
+2025-08-20 02:13:20,072 [WARNING] Failed to comment on reel: https://www.instagram.com/p/DKQH9KiNdFE/. It will be skipped.
+2025-08-20 02:13:20,074 [INFO] Pausing for 16.09 seconds before next reel...
+2025-08-20 02:13:36,165 [INFO] Finished processing all collected reels.
+2025-08-20 02:13:36,166 [INFO] Finished with keyword 'goldjewellery'. Pausing for 38.15s.
+2025-08-20 02:14:14,317 [INFO] All keywords processed. Shutting down bot session.
+2025-08-20 02:14:14,317 [INFO] Session closed. Processed reels saved.
