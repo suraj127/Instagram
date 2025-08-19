@@ -1,13 +1,9 @@
 # Instagram Credentials
-USERNAME = "inst.ascroll220"
-PASSWORD = "Suraj1234@"
+USERNAME = "YOUR_USERNAME"
+PASSWORD = "YOUR_PASSWORD"
 
 # Search Settings
-<<<<<<< Updated upstream
-SEARCH_KEYWORDS = ["goldjewellery"]  # A list of hashtags or accounts to process
-=======
-SEARCH_KEYWORD = "goldjewellery"  # Can be a hashtag or a user account
->>>>>>> Stashed changes
+SEARCH_KEYWORDS = ["goldjewellery", "travel", "fashion"]  # A list of hashtags or accounts to process
 
 # Comment Settings
 COMMENT_TEXT = """Hello!
