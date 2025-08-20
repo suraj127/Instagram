@@ -1,0 +1,31 @@
+2025-08-20 10:58:53,290 [INFO] Setting up stealth WebDriver...
+2025-08-20 10:58:55,635 [INFO] patching driver executable C:\Users\soura\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
+2025-08-20 10:59:11,895 [INFO] Attempting to log in...
+2025-08-20 10:59:15,417 [ERROR] An error occurred during login: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=139.0.7258.128)
+Stacktrace:
+	GetHandleVerifier [0x0x88ffc3+65331]
+	GetHandleVerifier [0x0x890004+65396]
+	(No symbol) [0x0x683f63]
+	(No symbol) [0x0x662e69]
+	(No symbol) [0x0x6f7c7e]
+	(No symbol) [0x0x7124d9]
+	(No symbol) [0x0x6f12d6]
+	(No symbol) [0x0x6c0910]
+	(No symbol) [0x0x6c1784]
+	GetHandleVerifier [0x0xad38b3+2439203]
+	GetHandleVerifier [0x0xaceae2+2419282]
+	GetHandleVerifier [0x0x8b712a+225434]
+	GetHandleVerifier [0x0x8a6e08+159096]
+	GetHandleVerifier [0x0x8add5d+187597]
+	GetHandleVerifier [0x0x897ad8+96840]
+	GetHandleVerifier [0x0x897c62+97234]
+	GetHandleVerifier [0x0x88277a+9962]
+	BaseThreadInitThunk [0x0x76065d49+25]
+	RtlInitializeExceptionChain [0x0x77d1d2fb+107]
+	RtlGetAppContainerNamedObjectPath [0x0x77d1d281+561]
+
+2025-08-20 10:59:15,433 [ERROR] Login failed. Shutting down.
+2025-08-20 10:59:15,435 [INFO] All keywords processed. Shutting down.
+2025-08-20 10:59:15,437 [INFO] Session closed.
