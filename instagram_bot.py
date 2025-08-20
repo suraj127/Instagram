@@ -165,25 +165,13 @@ class InstagramBot:
 
             self._human_delay(1, 2)
 
-            self.logger.info("Typing comment with stale element handling...")
+            self.logger.info("Setting comment text using JavaScript for multi-line support...")
             comment_text = self.config.COMMENT_TEXT
-            for char in comment_text:
-                try:
-                    comment_box.send_keys(char)
-                except StaleElementReferenceException:
-                    self.logger.warning("Comment box became stale. Re-finding and re-clicking to continue.")
-                    comment_box = self._wait_for_element(By.TAG_NAME, "textarea", 5)
-                    if not comment_box:
-                        self.logger.error("Could not re-find comment box after stale element error.")
-                        return False
 
-                    # Re-activate the new comment box before typing
-                    ActionChains(self.driver).move_to_element(comment_box).click().perform()
-
-                    # Send the character that was missed
-                    comment_box.send_keys(char)
-
-                time.sleep(random.uniform(0.1, 0.3))
+            # Use JavaScript to set the value, which is the only reliable way for multi-line text
+            self.driver.execute_script("arguments[0].value = arguments[1];", comment_box, comment_text)
+            # Trigger an input event to ensure the website's framework (like React) recognizes the change
+            self.driver.execute_script("arguments[0].dispatchEvent(new Event('input', { bubbles: true }));", comment_box)
 
             self._human_delay(1, 2)
 
