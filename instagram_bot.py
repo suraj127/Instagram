@@ -8,6 +8,7 @@ import pickle
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
@@ -20,9 +21,16 @@ class InstagramBot:
         self.config = config
         self._setup_logging()
 
-        self.logger.info("Setting up stealth WebDriver...")
+        self.logger.info("Setting up stealth WebDriver for Brave Browser...")
         options = uc.ChromeOptions()
-        # options.add_argument("--disable-blink-features=AutomationControlled")
+
+        # Point to the Brave Browser executable
+        brave_path = "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe"
+        if os.path.exists(brave_path):
+            options.binary_location = brave_path
+        else:
+            self.logger.warning(f"Brave Browser not found at {brave_path}. The script will default to Chrome.")
+
         if self.config.HEADLESS_MODE:
             options.add_argument("--headless")
 
@@ -83,8 +91,12 @@ class InstagramBot:
                 time.sleep(random.uniform(0.1, 0.3))
 
             password_box.send_keys(Keys.RETURN)
-            self._human_delay(5, 8)
 
+            self.logger.info("Login attempt submitted. Pausing for 60 seconds for you to observe the browser...")
+            self.logger.info("Please check the browser for any error messages, 2-Factor-Auth requests, or other popups.")
+            time.sleep(60)
+
+            self.logger.info("Checking for login confirmation...")
             # Check for a successful login by looking for the "Not Now" button for notifications
             not_now_button = self._wait_for_element(By.XPATH, "//button[contains(text(), 'Not Now')]")
             if not_now_button:
@@ -131,21 +143,34 @@ class InstagramBot:
     def comment_on_post(self, post_url):
         """
         Navigates to a post, types the comment, and submits it by pressing Enter.
+        Uses advanced clicking methods to activate the comment box.
         """
         self.logger.info(f"Navigating to post to comment: {post_url}")
         self.driver.get(post_url)
-        self._human_delay(5, 8) # Wait for page elements to load
+        self._human_delay(5, 8)
 
         try:
-            # Use a more general selector first, then the specific one.
-            self.logger.info("Looking for comment box...")
-            comment_box = self._wait_for_element(By.CSS_SELECTOR, "textarea[placeholder='Add a comment...']", 10)
-            if not comment_box:
-                 comment_box = self._wait_for_element(By.CSS_SELECTOR, "textarea.Ypffh", 10)
+            self.logger.info("Searching for comment box using generic <textarea> tag...")
+            comment_box = self._wait_for_element(By.TAG_NAME, "textarea", 15)
 
             if not comment_box:
-                self.logger.error("Could not find comment box on the post page.")
+                self.logger.error("FINAL ATTEMPT FAILED: Could not find a <textarea> on the page to comment in.")
                 return False
+
+            self.logger.info("Found a textarea. Trying to activate and click it...")
+            try:
+                # Use ActionChains for a more human-like click
+                ActionChains(self.driver).move_to_element(comment_box).click().perform()
+            except Exception as e:
+                self.logger.warning(f"Standard click method failed: {e}. Trying direct JavaScript click.")
+                try:
+                    # As a last resort, use a direct JavaScript click
+                    self.driver.execute_script("arguments[0].click();", comment_box)
+                except Exception as js_e:
+                    self.logger.error(f"All methods to click the comment box failed: {js_e}")
+                    return False
+
+            self._human_delay(1, 2)
 
             self.logger.info("Typing comment...")
             for char in self.config.COMMENT_TEXT:
@@ -159,7 +184,7 @@ class InstagramBot:
 
             self.logger.info("✅ Comment submitted successfully!")
             self.processed_reels.add(post_url)
-            self._human_delay(3, 5) # Wait a moment to let the comment appear
+            self._human_delay(3, 5)
             return True
 
         except Exception as e:
