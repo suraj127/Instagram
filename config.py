@@ -1,11 +1,6 @@
 # Instagram Credentials
-<<<<<<< HEAD
-USERNAME = "inst.ascroll220"
-PASSWORD = "Gupta123@"
-=======
 USERNAME = "YOUR_USERNAME"
 PASSWORD = "YOUR_PASSWORD"
->>>>>>> b6ba183e94c2686e0a9cbd28f311350e71fd12d3
 
 # Search Settings
 SEARCH_KEYWORDS = ["goldjewellery", "travel", "fashion"]  # A list of hashtags or accounts to process
@@ -34,7 +29,7 @@ HEADLESS_MODE = False  # Set to True to run without opening a browser window
 LIKE_REEL = True  # Set to True to like the reel before commenting
 
 # File Paths
-CHROME_DRIVER_PATH = "path/to/your/chromedriver"  # Only needed if not using webdriver-manager
+# CHROME_DRIVER_PATH is not used when using undetected-chromedriver
 COOKIES_PATH = "instagram_cookies.pkl"
 PROCESSED_REELS_PATH = "processed_reels.json"
 LOG_FILE_PATH = "comment_log.txt"
