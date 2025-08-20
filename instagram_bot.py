@@ -171,11 +171,15 @@ class InstagramBot:
                 try:
                     comment_box.send_keys(char)
                 except StaleElementReferenceException:
-                    self.logger.warning("Comment box became stale. Re-finding element to continue typing.")
+                    self.logger.warning("Comment box became stale. Re-finding and re-clicking to continue.")
                     comment_box = self._wait_for_element(By.TAG_NAME, "textarea", 5)
                     if not comment_box:
                         self.logger.error("Could not re-find comment box after stale element error.")
                         return False
+
+                    # Re-activate the new comment box before typing
+                    ActionChains(self.driver).move_to_element(comment_box).click().perform()
+
                     # Send the character that was missed
                     comment_box.send_keys(char)
 
