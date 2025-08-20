@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2025-08-20 11:46:54,543 [INFO] Setting up stealth WebDriver...
 2025-08-20 11:46:56,562 [INFO] patching driver executable C:\Users\soura\appdata\roaming\undetected_chromedriver\undetected_chromedriver.exe
 2025-08-20 11:47:04,650 [INFO] Attempting to log in...
@@ -33,3 +34,5 @@
 2025-08-20 11:50:24,579 [ERROR] Could not find comment box on the post page.
 2025-08-20 11:50:50,215 [INFO] All keywords processed. Shutting down.
 2025-08-20 11:50:50,218 [INFO] Session closed.
+=======
+>>>>>>> b6ba183e94c2686e0a9cbd28f311350e71fd12d3

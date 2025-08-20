@@ -1,6 +1,11 @@
 # Instagram Credentials
+<<<<<<< HEAD
 USERNAME = "inst.ascroll220"
 PASSWORD = "Gupta123@"
+=======
+USERNAME = "YOUR_USERNAME"
+PASSWORD = "YOUR_PASSWORD"
+>>>>>>> b6ba183e94c2686e0a9cbd28f311350e71fd12d3
 
 # Search Settings
 SEARCH_KEYWORDS = ["goldjewellery", "travel", "fashion"]  # A list of hashtags or accounts to process
