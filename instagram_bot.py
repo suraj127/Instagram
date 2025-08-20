@@ -11,7 +11,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, StaleElementReferenceException
 
 class InstagramBot:
     """
@@ -143,7 +143,7 @@ class InstagramBot:
     def comment_on_post(self, post_url):
         """
         Navigates to a post, types the comment, and submits it by pressing Enter.
-        Uses advanced clicking methods to activate the comment box.
+        Includes a retry mechanism for stale elements.
         """
         self.logger.info(f"Navigating to post to comment: {post_url}")
         self.driver.get(post_url)
@@ -154,27 +154,31 @@ class InstagramBot:
             comment_box = self._wait_for_element(By.TAG_NAME, "textarea", 15)
 
             if not comment_box:
-                self.logger.error("FINAL ATTEMPT FAILED: Could not find a <textarea> on the page to comment in.")
+                self.logger.error("Could not find a <textarea> on the page to comment in.")
                 return False
 
-            self.logger.info("Found a textarea. Trying to activate and click it...")
+            self.logger.info("Activating comment box...")
             try:
-                # Use ActionChains for a more human-like click
                 ActionChains(self.driver).move_to_element(comment_box).click().perform()
-            except Exception as e:
-                self.logger.warning(f"Standard click method failed: {e}. Trying direct JavaScript click.")
-                try:
-                    # As a last resort, use a direct JavaScript click
-                    self.driver.execute_script("arguments[0].click();", comment_box)
-                except Exception as js_e:
-                    self.logger.error(f"All methods to click the comment box failed: {js_e}")
-                    return False
+            except Exception:
+                self.driver.execute_script("arguments[0].click();", comment_box)
 
             self._human_delay(1, 2)
 
-            self.logger.info("Typing comment...")
-            for char in self.config.COMMENT_TEXT:
-                comment_box.send_keys(char)
+            self.logger.info("Typing comment with stale element handling...")
+            comment_text = self.config.COMMENT_TEXT
+            for char in comment_text:
+                try:
+                    comment_box.send_keys(char)
+                except StaleElementReferenceException:
+                    self.logger.warning("Comment box became stale. Re-finding element to continue typing.")
+                    comment_box = self._wait_for_element(By.TAG_NAME, "textarea", 5)
+                    if not comment_box:
+                        self.logger.error("Could not re-find comment box after stale element error.")
+                        return False
+                    # Send the character that was missed
+                    comment_box.send_keys(char)
+
                 time.sleep(random.uniform(0.1, 0.3))
 
             self._human_delay(1, 2)
@@ -188,7 +192,7 @@ class InstagramBot:
             return True
 
         except Exception as e:
-            self.logger.error(f"An unexpected error occurred while trying to comment: {e}")
+            self.logger.error(f"An unexpected error occurred while trying to comment: {e}", exc_info=True)
             return False
 
     def close_session(self):
